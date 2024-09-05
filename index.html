@@ -6,7 +6,7 @@
     <title>Meme Generator</title>
     <style>
       body {
-        background-image: url("assets/images/harsh_wallpaper.png");
+        background-image: url("assets/images/harsh_wallpaper.jpeg");
         background-size: cover;
         background-position: center;
         font-family: Arial, sans-serif;
@@ -191,6 +191,7 @@
             img.src = imageUrl;
             img.alt = `Image ${index + 1}`;
             img.classList.add("carousel-image");
+            img.classList.add("diwali-carousel");
             if (index === 0) {
               img.classList.add("active");
             }
@@ -200,7 +201,9 @@
 
         // Function to navigate to the next image
         function nextImage() {
-          const images = document.querySelectorAll(".carousel-image");
+          const images = document.querySelectorAll(
+            ".carousel-image.diwali-carousel",
+          );
           images[currentImageIndex].classList.remove("active");
           currentImageIndex = (currentImageIndex + 1) % images.length;
           images[currentImageIndex].classList.add("active");
@@ -208,7 +211,9 @@
 
         // Function to navigate to the previous image
         function prevImage() {
-          const images = document.querySelectorAll(".carousel-image");
+          const images = document.querySelectorAll(
+            ".carousel-image.diwali-carousel",
+          );
           images[currentImageIndex].classList.remove("active");
           currentImageIndex =
             (currentImageIndex - 1 + images.length) % images.length;
@@ -231,5 +236,82 @@
         setInterval(autoScroll, 800);
       </script>
     </div>
+
+    <div class="container">
+      <h3 class="intro">
+        Ladies you thought you can save yourself from his charm, ohh how wrong
+        you are
+      </h3>
+      <!-- The carousel container -->
+      <div class="carousel-container">
+        <div id="charm-carousel" class="carousel"></div>
+        <!-- Navigation buttons for the carousel -->
+        <button id="charm-prev-button" class="prev-button">Prev</button>
+        <button id="charm-next-button" class="next-button">Next</button>
+      </div>
+    </div>
+
+    <script>
+      // Get the carousel and buttons elements
+      const charmCarousel = document.getElementById("charm-carousel");
+      const charmPrevButton = document.getElementById("charm-prev-button");
+      const charmNextButton = document.getElementById("charm-next-button");
+
+      // Get the images from the assets/images/charm_carousel folder
+      const charmImageUrls = [
+        "assets/images/charm_carousel/IMG_1.jpeg",
+        "assets/images/charm_carousel/IMG_2.jpeg",
+        "assets/images/charm_carousel/IMG_3.jpeg",
+        "assets/images/charm_carousel/IMG_4.jpeg",
+      ];
+
+      // Initialize the current image index
+      let currentCharmImageIndex = 0;
+
+      // Function to load the images into the carousel
+      function loadCharmImages() {
+        charmImageUrls.forEach((imageUrl, index) => {
+          const img = document.createElement("img");
+          img.src = imageUrl;
+          img.alt = `Charm Image ${index + 1}`;
+          img.classList.add("carousel-image");
+          img.classList.add("charm-carousel");
+          if (index === 0) {
+            img.classList.add("active");
+          }
+          charmCarousel.appendChild(img);
+        });
+      }
+
+      // Function to navigate to the next image
+      function nextCharmImage() {
+        const charmImages = document.querySelectorAll(
+          ".carousel-image.charm-carousel",
+        );
+        charmImages[currentCharmImageIndex].classList.remove("active");
+        currentCharmImageIndex =
+          (currentCharmImageIndex + 1) % charmImages.length;
+        charmImages[currentCharmImageIndex].classList.add("active");
+      }
+
+      // Function to navigate to the previous image
+      function prevCharmImage() {
+        const charmImages = document.querySelectorAll(
+          ".carousel-image.charm-carousel",
+        );
+        charmImages[currentCharmImageIndex].classList.remove("active");
+        currentCharmImageIndex =
+          (currentCharmImageIndex - 1 + charmImages.length) %
+          charmImages.length;
+        charmImages[currentCharmImageIndex].classList.add("active");
+      }
+
+      // Add event listeners to the navigation buttons
+      charmPrevButton.addEventListener("click", prevCharmImage);
+      charmNextButton.addEventListener("click", nextCharmImage);
+
+      // Load the images into the carousel
+      loadCharmImages();
+    </script>
   </body>
 </html>
