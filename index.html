@@ -20,6 +20,9 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
+      .intro {
+        text-align: center;
+      }
 
       .meme-form {
         display: flex;
@@ -84,19 +87,149 @@
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       }
     </style>
+    <style>
+      .carousel-container {
+        position: relative;
+        width: 500px;
+        height: 800px;
+        margin: 40px auto;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .carousel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .carousel-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        opacity: 0;
+        /*transition: opacity 0.5s;*/
+      }
+
+      .carousel-image.active {
+        opacity: 1;
+      }
+
+      .prev-button,
+      .next-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px 20px;
+      }
+
+      .prev-button {
+        left: -100px;
+      }
+
+      .next-button {
+        right: -100px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <h1>
-        Welcome to the Ultimate Meme Page Dedicated to My Beloved Friend, the
-        one and only Mr. Harsh Challa!
-      </h1>
-      <p>
-        Warning: Proceed with caution, as the content on this page may cause
-        excessive laughter, eye-rolling, and spontaneous outbursts of "That's so
-        Challa!"
-      </p>
-      <p>Also only I am allowed to make fun of him</p>
+      <div class="intro">
+        <h1>
+          Welcome to the Ultimate Meme Page Dedicated to My Beloved Friend, the
+          one and only Mr. Harsh Challa!
+        </h1>
+        <p>
+          Warning: Proceed with caution, as the content on this page may cause
+          excessive laughter, eye-rolling, and spontaneous outbursts of "That's
+          so Challa!"
+        </p>
+        <p>Also only I am allowed to make fun of him</p>
+      </div>
+
+      <!-- The carousel container -->
+      <div class="carousel-container">
+        <div id="carousel" class="carousel"></div>
+        <!-- Navigation buttons for the carousel -->
+        <button id="prev-button" class="prev-button">Prev</button>
+        <button id="next-button" class="next-button">Next</button>
+      </div>
+      <script>
+        // Get the carousel and buttons elements
+        const carousel = document.getElementById("carousel");
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+
+        // Get the images from the assets/images/diwali_23_carousel folder
+        const imageUrls = [
+          "assets/images/diwali_23_carousel/IMG_8540.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8541.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8542.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8543.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8544.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8545.jpeg",
+          "assets/images/diwali_23_carousel/IMG_8546.jpeg",
+        ];
+
+        // Initialize the current image index
+        let currentImageIndex = 0;
+
+        // Function to load the images into the carousel
+        function loadImages() {
+          imageUrls.forEach((imageUrl, index) => {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = `Image ${index + 1}`;
+            img.classList.add("carousel-image");
+            if (index === 0) {
+              img.classList.add("active");
+            }
+            carousel.appendChild(img);
+          });
+        }
+
+        // Function to navigate to the next image
+        function nextImage() {
+          const images = document.querySelectorAll(".carousel-image");
+          images[currentImageIndex].classList.remove("active");
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          images[currentImageIndex].classList.add("active");
+        }
+
+        // Function to navigate to the previous image
+        function prevImage() {
+          const images = document.querySelectorAll(".carousel-image");
+          images[currentImageIndex].classList.remove("active");
+          currentImageIndex =
+            (currentImageIndex - 1 + images.length) % images.length;
+          images[currentImageIndex].classList.add("active");
+        }
+
+        // Add event listeners to the navigation buttons
+        prevButton.addEventListener("click", prevImage);
+        nextButton.addEventListener("click", nextImage);
+
+        // Load the images into the carousel
+        loadImages();
+
+        // Function to navigate to the next image automatically
+        function autoScroll() {
+          nextImage();
+        }
+
+        // Set an interval to call the autoScroll function every 3 seconds
+        setInterval(autoScroll, 800);
+      </script>
     </div>
   </body>
 </html>
